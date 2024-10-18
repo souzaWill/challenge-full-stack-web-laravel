@@ -49,6 +49,8 @@ function login()
 {
     $user = User::factory()->create();
     Sanctum::actingAs($user);
+    $user->createToken('api')->plainTextToken;
+
 
     return $user;
 }

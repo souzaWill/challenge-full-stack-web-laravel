@@ -54,11 +54,7 @@ class AuthController extends Controller
             ], 200);
         }
 
-        return response()->json([
-            'success' => false,
-            'message' => 'Unauthorized',
-        ], 401);
-
+        abort(401);
     }
 
     /**
@@ -76,7 +72,8 @@ class AuthController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
+        
         return response()->json([
             'status' => 'success',
             'message' => 'User logged out successfully',

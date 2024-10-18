@@ -7,7 +7,7 @@ it('admin user can successful login', function () {
     $admin = User::factory()->admin()->create([
         'password' => $password,
     ]);
-    $response = $this->post('api/login', [
+    $response = $this->postJson('api/login', [
         'email' => $admin->email,
         'password' => $password,
     ])
@@ -22,7 +22,7 @@ it('student cannot successful login', function () {
         'password' => $password,
     ]);
 
-    $response = $this->post('api/login', [
+    $response = $this->postJson('api/login', [
         'email' => $user->email,
         'password' => $password,
     ]);
@@ -37,7 +37,7 @@ it('user cannot login with wrong credetials', function () {
         'password' => $password,
     ]);
 
-    $response = $this->post('api/login', [
+    $response = $this->postJson('api/login', [
         'email' => $user->email,
         'password' => fake()->password(),
 
@@ -48,7 +48,10 @@ it('user cannot login with wrong credetials', function () {
 });
 
 it('user can successful logout', function () {
-    login();
+    $user = login();
 
     $this->post('api/logout')->assertOk();
+
+    $tokens = $user->tokens->toArray();
+    expect($tokens)->toBeEmpty();
 });
