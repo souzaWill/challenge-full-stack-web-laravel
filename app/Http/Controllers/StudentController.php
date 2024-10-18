@@ -6,16 +6,14 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\StudentResource;
 use App\Models\Student;
-use App\Repositories\Students\StudentRepositoryInterface;
-use Illuminate\Http\JsonResponse;
+use App\Services\Students\StudentServiceInterface;
 use Illuminate\Support\Facades\Gate;
 
 class StudentController extends Controller
 {
 
-    public function __construct(protected StudentRepositoryInterface $studentRepository)
+    public function __construct(protected StudentServiceInterface $studentService)
     {
-        $this->studentRepository = $studentRepository;
     }
     /**
      * Display a listing of the resource.
@@ -24,17 +22,9 @@ class StudentController extends Controller
     {
         Gate::authorize('viewAny', Student::class);
 
-        $students = $this->studentRepository->all();
-
+        $students = $this->studentService->list();
+        
         return StudentResource::collection($students);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -42,7 +32,12 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        //
+        $student = $this->studentService->create($request->all());
+
+        return (new StudentResource($student))
+            ->response()
+            ->setStatusCode(201);
+
     }
 
     /**
@@ -53,14 +48,6 @@ class StudentController extends Controller
         Gate::authorize('view', $student);
 
         return new StudentResource($student);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
-    {
-        //
     }
 
     /**
