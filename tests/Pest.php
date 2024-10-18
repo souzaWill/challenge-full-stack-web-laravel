@@ -11,6 +11,7 @@
 |
 */
 
+use App\Enums\RoleEnum;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
@@ -45,9 +46,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function login()
+function login(RoleEnum $role): User
 {
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'role' => $role,
+    ]);
+
     Sanctum::actingAs($user);
     $user->createToken('api')->plainTextToken;
 
