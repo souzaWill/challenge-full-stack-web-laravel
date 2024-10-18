@@ -34,7 +34,32 @@ describe('students module', function () {
         });
 
 
-        it('admin can create students')->todo();
+        it('admin can create students', function(){
+            login(RoleEnum::Admin);
+
+            $document = fake()->cpf(false);
+            $registrationNumber = fake()->randomNumber(7, true);
+            $email = fake()->email();
+            $name = fake()->name();
+
+            $this->postJson("api/students", [
+                'name' => $name,
+                'email' => $email,
+                'document' => $document,
+                'registration_number' => $registrationNumber,
+            ])->assertCreated();
+
+            $this->assertDatabaseHas('users', [
+                'email' => $email,
+                'name' => $name,
+            ]);
+
+            $this->assertDatabaseHas('students', [
+                'document' => $document,
+                'registration_number' => $registrationNumber
+            ]);
+
+        });
         it('admin can edit students')->todo();
         it('admin can delete students')->todo();
 
@@ -56,7 +81,22 @@ describe('students module', function () {
             $this->get("api/students/$studentId")->assertForbidden();
         });
 
-        it('student cannot create students')->todo();
+        it('student cannot create students', function(){
+            login(RoleEnum::Student);
+
+            $document = fake()->cpf(false);
+            $registrationNumber = fake()->randomNumber(7, true);
+            $email = fake()->email();
+            $name = fake()->name();
+
+            $this->postJson("api/students", [
+                'name' => $name,
+                'email' => $email,
+                'document' => $document,
+                'registrationNumber' => $registrationNumber,
+            ])->assertForbidden();
+            
+        });
         it('student cannot edit students')->todo();
         it('student cannot delete students')->todo();
     });
