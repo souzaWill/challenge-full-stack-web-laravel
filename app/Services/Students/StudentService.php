@@ -67,8 +67,8 @@ class StudentService implements StudentServiceInterface
     public function delete(int|Student $student): bool
     {
         $student = $student instanceof Student
-        ? $student
-        : $this->studentRepository->find($student);
+            ? $student
+            : $this->studentRepository->find($student);
 
         $deletedStudent = $this->studentRepository->delete(
             $student->id,
