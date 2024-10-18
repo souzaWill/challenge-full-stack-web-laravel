@@ -51,7 +51,7 @@ class StudentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Student $student): bool
+    public function update(User $user, ?Student $student = null): bool
     {
         return in_array($user->role,
             $this->allowedRoles(),
@@ -62,7 +62,7 @@ class StudentPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Student $student): bool
+    public function delete(User $user, ?Student $student = null): bool
     {
         return in_array($user->role,
             $this->allowedRoles(),

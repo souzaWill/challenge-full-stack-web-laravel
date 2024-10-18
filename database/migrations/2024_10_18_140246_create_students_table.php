@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('registration_number')->unique();
             $table->foreignIdFor(User::class)
                 ->constrained()
-                ->unique()
-                ->onDelete('cascade');
+                ->unique();
 
             $table->timestamps();
         });

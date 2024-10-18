@@ -11,10 +11,8 @@ use Illuminate\Support\Facades\Gate;
 
 class StudentController extends Controller
 {
+    public function __construct(protected StudentServiceInterface $studentService) {}
 
-    public function __construct(protected StudentServiceInterface $studentService)
-    {
-    }
     /**
      * Display a listing of the resource.
      */
@@ -23,7 +21,7 @@ class StudentController extends Controller
         Gate::authorize('viewAny', Student::class);
 
         $students = $this->studentService->list();
-        
+
         return StudentResource::collection($students);
     }
 
@@ -32,7 +30,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        $student = $this->studentService->create($request->all());
+        $student = $this->studentService->create($request->validated());
 
         return (new StudentResource($student))
             ->response()
@@ -55,7 +53,14 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        $student = $this->studentService->update(
+            $student,
+            $request->validated()
+        );
+
+        return (new StudentResource($student))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -63,6 +68,12 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        Gate::authorize('delete', $student);
+
+        $student = $this->studentService->delete(
+            $student
+        );
+
+        return response()->noContent();
     }
 }

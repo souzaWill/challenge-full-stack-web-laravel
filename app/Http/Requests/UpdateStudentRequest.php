@@ -5,14 +5,14 @@ namespace App\Http\Requests;
 use App\Models\Student;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreStudentRequest extends FormRequest
+class UpdateStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return $this->user()->can('create', Student::class);
+        return $this->user()->can('update', Student::class);
     }
 
     /**
@@ -24,9 +24,7 @@ class StoreStudentRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'email' => ['required', 'unique:users'],
-            'document' => ['required', 'unique:students'],
-            'registration_number' => ['required', 'unique:students'],
+            'email' => ['required'],
         ];
     }
 }
