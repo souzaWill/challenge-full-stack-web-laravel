@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -17,7 +16,5 @@ class UsersSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@maisaedu.com',
         ]);
-
-        User::factory(10)->student()->create();
     }
 }

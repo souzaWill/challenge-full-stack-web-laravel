@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RoleEnum;
 use App\Models\User;
 
 it('admin user can successful login', function () {
@@ -48,7 +49,7 @@ it('user cannot login with wrong credetials', function () {
 });
 
 it('user can successful logout', function () {
-    $user = login();
+    $user = login(RoleEnum::Admin);
 
     $this->post('api/logout')->assertOk();
 
