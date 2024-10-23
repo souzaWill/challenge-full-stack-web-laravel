@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use App\Services\Students\StudentServiceInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class StudentController extends Controller
@@ -16,12 +17,23 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         Gate::authorize('viewAny', Student::class);
+        
+        if($request->search){
+            $students = $this->studentService->findByUserName(
+                $request->search,
+            );
 
-        $students = $this->studentService->list();
+            return StudentResource::collection($students);
 
+        }
+
+        $students = $this->studentService->list(
+            $request->per_page,
+        );
+        
         return StudentResource::collection($students);
     }
 

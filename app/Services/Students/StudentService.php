@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Repositories\Students\StudentRepositoryInterface;
 use App\Services\Users\UserServiceInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class StudentService implements StudentServiceInterface
 {
@@ -17,12 +18,19 @@ class StudentService implements StudentServiceInterface
     ) {
         $this->studentRepository = $studentRepository;
         $this->userService = $userService;
-
     }
 
-    public function list(): Collection
+    public function list(?int $itensPerPage = null): Collection|LengthAwarePaginator
     {
-        return $this->studentRepository->all();
+        return $itensPerPage 
+            ? $this->studentRepository->paginate($itensPerPage)
+            : $this->studentRepository->all();
+        
+    }
+
+    public function findByUserName(string $search) : Collection|LengthAwarePaginator 
+    {
+        return $this->studentRepository->findByUserName($search);
     }
 
     public function create(array $data): Student

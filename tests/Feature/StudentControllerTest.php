@@ -34,7 +34,7 @@ describe('students module', function () {
             login(RoleEnum::Admin);
 
             $document = fake()->cpf(false);
-            $registrationNumber = fake()->randomNumber(7, true);
+            $registrationNumber = fake()->randomNumber(8, true);
             $email = fake()->email();
             $name = fake()->name();
 
@@ -63,7 +63,7 @@ describe('students module', function () {
             $student = Student::inRandomOrder()->first();
 
             $document = $student->document;
-            $registrationNumber = fake()->randomNumber(7, true);
+            $registrationNumber = fake()->randomNumber(8, true);
             $email = fake()->email();
             $name = fake()->name();
 
@@ -168,7 +168,7 @@ describe('students module', function () {
 
             $email = fake()->email();
             $name = fake()->name();
-            $registrationNumber = fake()->randomNumber(7, true);
+            $registrationNumber = fake()->randomNumber(8, true);
 
             $this->putJson("api/students/$studentId", [
                 'name' => $name,
@@ -224,7 +224,7 @@ describe('students module', function () {
             login(RoleEnum::Student);
 
             $document = fake()->cpf(false);
-            $registrationNumber = fake()->randomNumber(7, true);
+            $registrationNumber = fake()->randomNumber(8, true);
             $email = fake()->email();
             $name = fake()->name();
 

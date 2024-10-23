@@ -33,6 +33,11 @@ class AuthController extends Controller
      */
     public function login(Request $request): JsonResponse
     {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
         $credentials = [
             'email' => $request->email, 
             'password' => $request->password,
@@ -54,7 +59,10 @@ class AuthController extends Controller
             ], 200);
         }
 
-        abort(401);
+        return response()->json([
+            'success' => false,
+            'message' => __('auth.failed'),
+        ], 401);
     }
 
     /**

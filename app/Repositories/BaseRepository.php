@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\DTOs\BaseDTOInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 abstract class BaseRepository implements BaseRepositoryInterface
 {
@@ -15,9 +16,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function all(): Collection
+    public function all(): Collection|LengthAwarePaginator
     {
-        return $this->model->all();
+        return $this->model->all();;
     }
 
     public function find($id): Model

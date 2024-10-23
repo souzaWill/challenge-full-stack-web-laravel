@@ -5,10 +5,11 @@ namespace App\Repositories;
 use App\DTOs\BaseDTOInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface BaseRepositoryInterface
 {
-    public function all(): Collection;
+    public function all(): Collection|LengthAwarePaginator;
 
     public function find(int $id): Model;
 
