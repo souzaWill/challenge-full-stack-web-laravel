@@ -23,6 +23,43 @@ describe('students module', function () {
                 ]);
         });
 
+        it('admin can search students', function () {
+            login(RoleEnum::Admin);
+            $studentName = Student::inRandomOrder()->first()->user->name;
+
+            $this->get("api/students?search=$studentName")->assertOk()
+                ->assertJsonCount(1,"data")
+                ->assertJsonStructure([
+                    'data' => [
+                        '*' => [
+                            'id',
+                            'document',
+                            'registration_number',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                ]);
+        });
+
+        it('admin can list students paginated', function () {
+            login(RoleEnum::Admin);
+
+            $this->get("api/students?page=1&per_page=10")->assertOk()
+                ->assertJsonCount(10,"data")
+                ->assertJsonStructure([
+                    'data' => [
+                        '*' => [
+                            'id',
+                            'document',
+                            'registration_number',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                ]);
+        });
+
         it('admin can view student', function () {
             login(RoleEnum::Admin);
 

@@ -9,5 +9,5 @@ interface StudentRepositoryInterface extends BaseRepositoryInterface
 {
     public function paginate(int $ItensPerPage): LengthAwarePaginator;
 
-    public function findByUserName(string $name): LengthAwarePaginator;
+    public function findByUserName(string $name, int $itensPerPage = 10): LengthAwarePaginator;
 }

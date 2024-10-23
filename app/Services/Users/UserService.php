@@ -2,7 +2,8 @@
 
 namespace App\Services\Users;
 
-use App\DTOs\Users\UserDTO;
+use App\DTOs\Users\UpdateUserDTO;
+use App\DTOs\Users\CreateUserDTO;
 use App\Models\User;
 use App\Repositories\Users\UserRepositoryInterface;
 
@@ -16,7 +17,7 @@ class UserService implements UserServiceInterface
 
     public function create(array $data)
     {
-        $userDTO = UserDTO::fromArray($data);
+        $userDTO = CreateUserDTO::fromArray($data);
 
         return $this->userRepository->create($userDTO);
     }
@@ -27,10 +28,7 @@ class UserService implements UserServiceInterface
             ? $user
             : $this->userRepository->find($user);
 
-        $userDTO = UserDTO::fromArray([
-            ...$data,
-            'role' => $user->role,
-        ]);
+        $userDTO = UpdateUserDTO::fromArray($data);
 
         return $this->userRepository->update(
             $user->id,

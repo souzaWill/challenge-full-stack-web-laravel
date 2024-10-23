@@ -18,17 +18,12 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         return $this->model->paginate($ItensPerPage);
     }
 
-    public function findByUserName(string $name, ?int $itensPerPage = null): LengthAwarePaginator
+    public function findByUserName(string $name, int $itensPerPage = 10): LengthAwarePaginator
     {
         return $this->model
             ->whereHas('user', function ($userQuery) use ($name) {
                 return $userQuery->where('name', 'like', "%$name%");
-            })
-            ->when($itensPerPage, function ($query, $itensPerPage) {
-                return $query->paginate($itensPerPage);
-            }, function ($query) {
-                return $query->get();
-            });
+            })->paginate($itensPerPage);
 
     }
 }
