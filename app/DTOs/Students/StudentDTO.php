@@ -6,13 +6,11 @@ use App\DTOs\BaseDTOInterface;
 
 class StudentDTO implements BaseDTOInterface
 {
-    
     public function __construct(
         public int $userId,
         public string $document,
         public string $registrationNumber,
-    )
-    {
+    ) {
         $this->userId = $userId;
         $this->document = $document;
         $this->registrationNumber = $registrationNumber;

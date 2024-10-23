@@ -55,6 +55,5 @@ function login(RoleEnum $role): User
     Sanctum::actingAs($user);
     $user->createToken('api')->plainTextToken;
 
-
     return $user;
 }

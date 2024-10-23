@@ -7,13 +7,11 @@ use App\Enums\RoleEnum;
 
 class UserDTO implements BaseDTOInterface
 {
-    
     public function __construct(
         public string $name,
         public string $email,
         public RoleEnum $role,
-    )
-    {
+    ) {
         $this->name = $name;
         $this->email = $email;
         $this->role = $role;

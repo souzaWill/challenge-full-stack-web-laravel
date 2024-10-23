@@ -20,8 +20,8 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         Gate::authorize('viewAny', Student::class);
-        
-        if($request->search){
+
+        if ($request->search) {
             $students = $this->studentService->findByUserName(
                 $request->search,
             );
@@ -33,7 +33,7 @@ class StudentController extends Controller
         $students = $this->studentService->list(
             $request->per_page,
         );
-        
+
         return StudentResource::collection($students);
     }
 

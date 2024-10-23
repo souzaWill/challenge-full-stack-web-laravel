@@ -23,7 +23,7 @@ class StoreStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', "string", "max:255"],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'unique:users', 'email'],
             'document' => ['required', 'unique:students', "regex:/^\d{11}$/"],
             'registration_number' => ['required', 'unique:students', "regex:/^\d{8}$/"],

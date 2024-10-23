@@ -7,8 +7,8 @@ use App\Enums\RoleEnum;
 use App\Models\Student;
 use App\Repositories\Students\StudentRepositoryInterface;
 use App\Services\Users\UserServiceInterface;
-use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class StudentService implements StudentServiceInterface
 {
@@ -22,13 +22,13 @@ class StudentService implements StudentServiceInterface
 
     public function list(?int $itensPerPage = null): Collection|LengthAwarePaginator
     {
-        return $itensPerPage 
+        return $itensPerPage
             ? $this->studentRepository->paginate($itensPerPage)
             : $this->studentRepository->all();
-        
+
     }
 
-    public function findByUserName(string $search) : Collection|LengthAwarePaginator 
+    public function findByUserName(string $search): Collection|LengthAwarePaginator
     {
         return $this->studentRepository->findByUserName($search);
     }

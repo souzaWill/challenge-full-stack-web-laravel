@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -39,13 +39,12 @@ class AuthController extends Controller
         ]);
 
         $credentials = [
-            'email' => $request->email, 
+            'email' => $request->email,
             'password' => $request->password,
-            'role' => RoleEnum::Admin->value //only admins can login
+            'role' => RoleEnum::Admin->value, //only admins can login
         ];
 
-        if (Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             /** @var User $user */
             $user = Auth::user();
             $user->tokens()->delete();
@@ -81,7 +80,7 @@ class AuthController extends Controller
     public function logout(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'User logged out successfully',

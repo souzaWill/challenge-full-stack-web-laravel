@@ -12,8 +12,8 @@ it('admin user can successful login', function () {
         'email' => $admin->email,
         'password' => $password,
     ])
-    ->assertOk();
-    
+        ->assertOk();
+
     $this->isAuthenticated();
 });
 
