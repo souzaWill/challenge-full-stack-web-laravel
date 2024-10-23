@@ -18,7 +18,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function all(): Collection|LengthAwarePaginator
     {
-        return $this->model->all();;
+        return $this->model->all();
     }
 
     public function find($id): Model

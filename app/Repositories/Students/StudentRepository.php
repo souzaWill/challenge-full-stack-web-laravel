@@ -26,7 +26,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
             ->when($itensPerPage, function($query, $itensPerPage){
                 return $query->paginate($itensPerPage);
             }, function($query){
-                $query->get();
+                return $query->get();
             });
             
     }
