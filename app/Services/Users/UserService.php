@@ -2,8 +2,8 @@
 
 namespace App\Services\Users;
 
-use App\DTOs\Users\UpdateUserDTO;
 use App\DTOs\Users\CreateUserDTO;
+use App\DTOs\Users\UpdateUserDTO;
 use App\Models\User;
 use App\Repositories\Users\UserRepositoryInterface;
 

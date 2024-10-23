@@ -25,15 +25,15 @@ class UpdateStudentRequest extends FormRequest
     {
         return [
             'name' => [
-                'required', 
-                'string', 
-                'max:255'
+                'required',
+                'string',
+                'max:255',
             ],
             'email' => [
-                'required', 
-                'email', 
+                'required',
+                'email',
                 Rule::unique('users')
-                    ->ignore($this->student->user_id, 'id')
+                    ->ignore($this->student->user_id, 'id'),
             ],
         ];
     }
