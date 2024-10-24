@@ -21,8 +21,8 @@ class StudentController extends Controller
      * Exibe uma lista de estudantes com paginação e busca.
      *
      *
-     * @queryParam page int O número da página a ser retornada (default: 1). 
-     * @queryParam per_page int O número de registros por página (default: 10). 
+     * @queryParam page int O número da página a ser retornada (default: 1).
+     * @queryParam per_page int O número de registros por página (default: 10).
      * @queryParam search string O termo para busca pelo nome do usuário.
      *
      * @response 200 {
@@ -45,11 +45,9 @@ class StudentController extends Controller
      *         },
      *     ],
      * }
-     *
      * @response 401 {
      *     "message": "Não autorizado."
      * }
-     *
      */
     public function index(Request $request)
     {
@@ -97,7 +95,6 @@ class StudentController extends Controller
      * }
      *
      * }
-     *
      */
     public function store(StoreStudentRequest $request)
     {
@@ -130,8 +127,6 @@ class StudentController extends Controller
      *     "created_at": "2024-10-23T22:26:06.000000Z",
      *     "updated_at": "2024-10-23T22:26:06.000000Z"
      * }
-     *
-     *
      */
     public function show(Student $student)
     {
@@ -140,7 +135,7 @@ class StudentController extends Controller
         return new StudentResource($student);
     }
 
-     /**
+    /**
      * Atualiza as informações de um estudante específico.
      *
      * @urlParam student int required O ID do estudante a ser atualizado. Exemplo: 1
@@ -164,8 +159,6 @@ class StudentController extends Controller
      *     "created_at": "2024-10-23T22:26:06.000000Z",
      *     "updated_at": "2024-10-23T22:26:06.000000Z"
      * }
-     *
-     *
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
@@ -185,7 +178,6 @@ class StudentController extends Controller
      * @urlParam student int required O ID do estudante a ser removido. Exemplo: 1
      *
      * @response 204 {}
-     *
      */
     public function destroy(Student $student)
     {

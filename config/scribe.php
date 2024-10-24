@@ -74,7 +74,7 @@ return [
     ],
 
     'external' => [
-        'html_attributes' => []
+        'html_attributes' => [],
     ],
 
     'try_it_out' => [
@@ -122,7 +122,7 @@ return [
     ],
 
     // Text to place in the "Introduction" section, right after the `description`. Markdown and HTML are supported.
-    'intro_text' => <<<INTRO
+    'intro_text' => <<<'INTRO'
     Esta documentação tem como objetivo fornecer todas as informações necessárias para trabalhar com nossa API.
 
     <aside>Conforme você rola a página, verá exemplos de código para trabalhar com a API em diferentes linguagens de programação na área escura à direita (ou como parte do conteúdo no celular).
@@ -224,8 +224,8 @@ return [
                 [
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
-                ]
-            ]
+                ],
+            ],
         ],
         'bodyParameters' => [
             Strategies\BodyParameters\GetFromFormRequest::class,
@@ -247,8 +247,8 @@ return [
                     'config' => [
                         'app.debug' => false,
                     ],
-                ]
-            ]
+                ],
+            ],
         ],
         'responseFields' => [
             Strategies\ResponseFields\GetFromResponseFieldAttribute::class,
