@@ -236,6 +236,8 @@ return [
         'category' => 'categoria',
         'blood_type' => 'tipo sanguíneo',
         'birth_date' => 'data de nascimento',
+        'document' => 'CPF',
+        'registration_number' => 'RA'
     ],
 
 ];
