@@ -33,7 +33,7 @@ class UpdateStudentRequest extends FormRequest
                 'required',
                 'email',
                 Rule::unique('users')
-                    ->ignore($this->student->user_id, 'id'),
+                    ->ignore($this?->student?->user_id, 'id'),
             ],
         ];
     }

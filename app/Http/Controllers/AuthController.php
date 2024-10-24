@@ -8,12 +8,15 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @group Autenticação
+ */
 class AuthController extends Controller
 {
     /**
      * Login
      *
-     * Permite que um usuário faça login na aplicação.
+     * Permite que um usuário faça login na aplicação. somente admins tem acesso a api
      *
      * @bodyParam email string required O endereço de e-mail do usuário. Exemplo: user@example.com
      * @bodyParam password string required A senha do usuário. Exemplo: secret
