@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('document', 11)->unique();
-            $table->string('registration_number')->unique();
+            $table->string('registration_number', 8)->unique();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->unique();

@@ -19,7 +19,7 @@ class StudentFactory extends Factory
     {
         return [
             'document' => fake()->cpf(false),
-            'registration_number' => fake()->randomNumber(7, true),
+            'registration_number' => fake()->randomNumber(8, true),
             'user_id' => User::factory()->student(),
         ];
     }

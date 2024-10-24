@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * @group Autenticação
+ */
 class AuthController extends Controller
 {
     /**
      * Login
      *
-     * Permite que um usuário faça login na aplicação.
+     * Permite que um usuário faça login na aplicação. somente admins tem acesso a api
      *
      * @bodyParam email string required O endereço de e-mail do usuário. Exemplo: user@example.com
      * @bodyParam password string required A senha do usuário. Exemplo: secret
@@ -33,14 +36,18 @@ class AuthController extends Controller
      */
     public function login(Request $request): JsonResponse
     {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
         $credentials = [
-            'email' => $request->email, 
+            'email' => $request->email,
             'password' => $request->password,
-            'role' => RoleEnum::Admin->value //only admins can login
+            'role' => RoleEnum::Admin->value, //only admins can login
         ];
 
-        if (Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             /** @var User $user */
             $user = Auth::user();
             $user->tokens()->delete();
@@ -54,7 +61,10 @@ class AuthController extends Controller
             ], 200);
         }
 
-        abort(401);
+        return response()->json([
+            'success' => false,
+            'message' => __('auth.failed'),
+        ], 401);
     }
 
     /**
@@ -73,7 +83,7 @@ class AuthController extends Controller
     public function logout(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'User logged out successfully',

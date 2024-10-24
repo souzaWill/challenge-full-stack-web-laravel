@@ -5,15 +5,13 @@ namespace App\DTOs\Users;
 use App\DTOs\BaseDTOInterface;
 use App\Enums\RoleEnum;
 
-class UserDTO implements BaseDTOInterface
+class CreateUserDTO implements BaseDTOInterface
 {
-    
     public function __construct(
         public string $name,
         public string $email,
         public RoleEnum $role,
-    )
-    {
+    ) {
         $this->name = $name;
         $this->email = $email;
         $this->role = $role;

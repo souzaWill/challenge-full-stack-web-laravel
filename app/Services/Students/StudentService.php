@@ -7,6 +7,7 @@ use App\Enums\RoleEnum;
 use App\Models\Student;
 use App\Repositories\Students\StudentRepositoryInterface;
 use App\Services\Users\UserServiceInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class StudentService implements StudentServiceInterface
@@ -17,12 +18,19 @@ class StudentService implements StudentServiceInterface
     ) {
         $this->studentRepository = $studentRepository;
         $this->userService = $userService;
+    }
+
+    public function list(?int $itensPerPage = null): Collection|LengthAwarePaginator
+    {
+        return $itensPerPage
+            ? $this->studentRepository->paginate($itensPerPage)
+            : $this->studentRepository->all();
 
     }
 
-    public function list(): Collection
+    public function findByUserName(string $search): Collection|LengthAwarePaginator
     {
-        return $this->studentRepository->all();
+        return $this->studentRepository->findByUserName($search);
     }
 
     public function create(array $data): Student

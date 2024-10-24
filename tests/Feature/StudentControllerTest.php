@@ -23,6 +23,43 @@ describe('students module', function () {
                 ]);
         });
 
+        it('admin can search students', function () {
+            login(RoleEnum::Admin);
+            $studentName = Student::inRandomOrder()->first()->user->name;
+
+            $this->get("api/students?search=$studentName")->assertOk()
+                ->assertJsonCount(1, 'data')
+                ->assertJsonStructure([
+                    'data' => [
+                        '*' => [
+                            'id',
+                            'document',
+                            'registration_number',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                ]);
+        });
+
+        it('admin can list students paginated', function () {
+            login(RoleEnum::Admin);
+
+            $this->get('api/students?page=1&per_page=10')->assertOk()
+                ->assertJsonCount(10, 'data')
+                ->assertJsonStructure([
+                    'data' => [
+                        '*' => [
+                            'id',
+                            'document',
+                            'registration_number',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                ]);
+        });
+
         it('admin can view student', function () {
             login(RoleEnum::Admin);
 
@@ -34,7 +71,7 @@ describe('students module', function () {
             login(RoleEnum::Admin);
 
             $document = fake()->cpf(false);
-            $registrationNumber = fake()->randomNumber(7, true);
+            $registrationNumber = fake()->randomNumber(8, true);
             $email = fake()->email();
             $name = fake()->name();
 
@@ -63,7 +100,7 @@ describe('students module', function () {
             $student = Student::inRandomOrder()->first();
 
             $document = $student->document;
-            $registrationNumber = fake()->randomNumber(7, true);
+            $registrationNumber = fake()->randomNumber(8, true);
             $email = fake()->email();
             $name = fake()->name();
 
@@ -168,7 +205,7 @@ describe('students module', function () {
 
             $email = fake()->email();
             $name = fake()->name();
-            $registrationNumber = fake()->randomNumber(7, true);
+            $registrationNumber = fake()->randomNumber(8, true);
 
             $this->putJson("api/students/$studentId", [
                 'name' => $name,
@@ -224,7 +261,7 @@ describe('students module', function () {
             login(RoleEnum::Student);
 
             $document = fake()->cpf(false);
-            $registrationNumber = fake()->randomNumber(7, true);
+            $registrationNumber = fake()->randomNumber(8, true);
             $email = fake()->email();
             $name = fake()->name();
 
