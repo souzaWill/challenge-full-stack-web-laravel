@@ -14,8 +14,8 @@ class UsersSeeder extends Seeder
     {
         User::factory()->admin()->create([
             'name' => 'admin',
-            'email' => 'admin@maisaedu.com',
-            'password' => 'Grecoarroba35@',
+            'email' => 'admin@maisaedu.com.br',
+            'password' => 'youshouldnotpass',
         ]);
     }
 }
