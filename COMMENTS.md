@@ -31,6 +31,19 @@
 - [Repositório backend](https://github.com/souzaWill/challenge-full-stack-web-laravel)
 - [Repositório frontend](https://github.com/souzaWill/challenge-full-stack-web-vuejs)
 
+## Rodar o Projeto local
+
+Para buildar o backend, é necessário ter o Docker e o Docker Compose instalados.
+
+- Para iniciar o projeto, utilize o script start.sh. Para facilitar a configuração, o SQLite foi utilizado por padrão. No entanto, há um container do MySQL disponível; basta definir as variáveis de ambiente para usá-lo.
+- As variáveis de ambiente padrão do sistema estão no arquivo .env.example.
+- acesse o http://localhost/
+
+Para o frontend, é necessário ter o NPM instalado.
+- Defina a variável de ambiente VITE_API_URL no arquivo .env.
+- Execute npm install e, em seguida, npm run dev. O frontend ficará disponível em http://localhost:3000/
+
+
 ## Decisão da arquitetura utilizada
 Antes de pegar no código, decidi tentar fazer um escopo inicial do que eu queria entregar para esse desafio. Utilizei a ferramenta Excalidraw:
 
