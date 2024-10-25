@@ -47,11 +47,12 @@ Para o frontend, é necessário ter o NPM instalado.
 ## Decisão da arquitetura utilizada
 Antes de pegar no código, decidi tentar fazer um escopo inicial do que eu queria entregar para esse desafio. Utilizei a ferramenta Excalidraw:
 
-![image](https://github.com/user-attachments/assets/de177eb8-ad6e-45fa-aefe-d6ffcf70e4a8)
+![image](/public/imgs/1.png)
 
 Tentei desenhar as tabelas e as APIs necessárias para a solução.
 
-![image](https://github.com/user-attachments/assets/da8fbc48-0825-4c5a-9d6d-f6c6b8433123)
+![image](/public/imgs/2.png)
+
 
 Existia a opção de criar somente 1 tabela `users` e nela ter os campos `document` e `registration_number`, porém quis deixar a solução um pouco menos simplista, adicionando um relacionamento. Assim, a tabela `student` é a informação adicional para um usuário ser considerado um usuário do tipo estudante, enquanto usuários que não têm um registro nessa tabela são admins.
 
@@ -66,24 +67,24 @@ Foram usadas **DTOs** para algumas ações, tentando ajudar no desacoplamento de
 
 Também foram utilizados **API Resources** para ser a camada que trata como serão os responses da API. Com o crescimento de uma aplicação podem surgir múltiplos clients da API com necessidades diferentes. Colocar isso em uma camada específica sempre ajuda.
 
-![image](https://github.com/user-attachments/assets/9f624217-b7fd-432b-abae-5046d02446d3)
+![image](/public/imgs/3.png)
 
 ## Testes Automatizados
 Costumo tentar seguir o **TDD** quando estou desenvolvendo uma API; pode ser uma mão na roda, pois fica mais fácil de debugar e ainda garante que o erro não volte a acontecer e você não veja. Utilizei o **PestPHP** porque gosto da sintaxe e dos plugins, como o **type coverage** e o **Architecture Testing** (garante que nenhuma função de debug do Laravel seja esquecida no código). Infelizmente, devido ao tempo, não consegui os 100% de coverage, mas ficou acima dos 90%.
 
-![image](https://github.com/user-attachments/assets/c16f8cf1-2f5d-408d-a963-7c4e78e2a786)
-![image](https://github.com/user-attachments/assets/fe08aa6e-54eb-4d9b-9943-b2b9a90e4f46)
-![image](https://github.com/user-attachments/assets/486f69b8-d7ff-481e-ae50-18e716f67ec9)
+![image](/public/imgs/4.png)
+![image](/public/imgs/5.png)
+![image](/public/imgs/6.png)
 
 ## Observabilidade
 Para garantir o mínimo de observabilidade da aplicação no deploy, foi usada a biblioteca **Laravel Log Viewer**, uma solução simples, mas eficaz, que garante a visualização dos logs mesmo após o deploy. Para acessá-la, é só entrar em `/docs` da API. Da maneira que foi implementada, não deu tempo de implementar um login, então ela está disponível para qualquer um acessar (o que não é tão bom).
 
-![image](https://github.com/user-attachments/assets/919b1f42-ed06-4df3-8625-d8ad0bdad532)
+![image](/public/imgs/7.png)
 
 ## Documentação
 A documentação dos endpoints foi gerada a partir do **Scribe**. É bem simples, porém ajuda bastante para gerar documentação de APIs rapidamente, permitindo também exportar uma collection com todas as rotas para ser usado em um API client (Postman, Insomnia).
 
-![image](https://github.com/user-attachments/assets/2a39f244-ccec-4a39-927c-c21fa9bc158f)
+![image](/public/imgs/8.png)
 
 ## Autorização
 Com a estrutura definida, foi necessário ter um controle de 'roles'. Assim, na tabela `users` existia uma coluna chamada `role_id`, e na API existe um **RoleEnum**. Caso o `role_id` seja 1, o usuário é um admin, caso 2, estudante, somente admins têm permissão de interagir com registros de estudantes. Esse controle ficou a cargo da **StudentPolicy**. Caso, amanhã, um estudante possa interagir com seus próprios dados, somente será necessário mexer na policy, assim ficando desacoplado das outras camadas da aplicação.
