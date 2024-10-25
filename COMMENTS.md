@@ -35,7 +35,7 @@
 
 Para buildar o backend, é necessário ter o Docker e o Docker Compose instalados.
 
-- Para iniciar o projeto, utilize o script start.sh. Para facilitar a configuração, o SQLite foi utilizado por padrão. No entanto, há um container do MySQL disponível; basta definir as variáveis de ambiente para usá-lo.
+- Para iniciar o projeto, utilize o script start.sh. Para facilitar a configuração, o SQLite foi utilizado por padrão na instalação local. No entanto, há um container do MySQL disponível; basta definir as variáveis de ambiente para usá-lo.
 - As variáveis de ambiente padrão do sistema estão no arquivo .env.example.
 - acesse o http://localhost/
 
